@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login | Yukti Academy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <div class="logo-mark" aria-label="Yukti Academy logo">YA</div>
+            <div>Yukti <span>Academy</span></div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/signup.html">Sign Up</a></li>
+                <li><a href="/login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="auth-section">
+        <div class="auth-card">
+            <h2>Student Login</h2>
+            <p>Access your learning dashboard.</p>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email Address" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+                <label class="remember-me">
+                    <input type="checkbox" id="rememberMe">
+                    <span>Remember Me</span>
+                </label>
+                <button type="submit" class="btn-login-submit">Login</button>
+            </form>
+            <p id="loginMessage" class="form-message"></p>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const message = document.getElementById('loginMessage');
+
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await res.json();
+            message.textContent = data.message;
+            message.style.display = 'block';
+
+            if (data.success) {
+                window.location.href = '/dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>
