@@ -1,0 +1,9 @@
+{
+  "name": "student-classroom-app",
+  "version": "1.0.0",
+  "description": "Student classroom frontend with a simple backend API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
